@@ -1,5 +1,5 @@
 <template>
-  <div class="message" :transition="effect">
+  <div class="message" :transition="effect" v-show="show">
     <slot></slot>
     <button class="message-dismiss" v-if="dismissible" @click="dismiss">&times;</button>
     <div class="timer-bar" v-if="selfDestruct && showTimerBar"></div>
@@ -15,6 +15,18 @@
       }
     },
 
+    computed: {
+      /**
+       * Determine whether to show the message.
+       *
+       * @author Curtis Blackwell
+       * @return {boolean}
+       */
+      show() {
+        return this.visible
+      },
+    },
+
     props: {
       // Automatically count down from value of `selfDestruct`?
       autoCountdown: Boolean,
@@ -25,6 +37,11 @@
       selfDestruct:  String,
       // Show a timer bar?
       showTimerBar:  Boolean,
+      // Show the message?
+      visible: {
+        type:    Boolean,
+        default: true
+      },
     },
 
     methods: {
@@ -67,7 +84,7 @@
        * @return {void}
        */
       dismiss() {
-        this.$remove();
+        this.visible = false;
       },
     },
   }

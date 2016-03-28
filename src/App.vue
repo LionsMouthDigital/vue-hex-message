@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <hex-message dismissible>
+    <hex-message dismissible show="false">
       <h3>That person over there is a person.</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
     </hex-message>
