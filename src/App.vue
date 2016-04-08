@@ -54,7 +54,7 @@
 </template>
 
 <script>
-  import HexMessage from './components/HexMessage.vue'
+  import HexMessage from './Component.vue'
 
   export default {
     components: {
