@@ -2,7 +2,7 @@
   <div id="app">
     <h1>Hex Message</h1>
     <h2>There's an an invisible message here.</h2>
-    <hex-message dismissible visible="false">
+    <hex-message dismissible :visible="false">
       <h3>The Invisible Man</h3>
       <p>&hellip; and other stories by H.G. Wells.</p>
     </hex-message>
