@@ -17,6 +17,15 @@
 
     computed: {
       /**
+       * Determine if this message is a modal.
+       *
+       * @author Curtis Blackwell
+       * @return {Boolean}
+       */
+      isModal() {
+        return this.$parent.hasOwnProperty('$options') && this.$parent.$options.name === 'hex-modals';
+      },
+      /**
        * Determine whether to show the message.
        *
        * @author Curtis Blackwell
@@ -85,6 +94,11 @@
        */
       dismiss() {
         this.visible = false;
+
+        // If this is a modal, let the parent `hex-modals` component know this was dismissed.
+        if (this.isModal) {
+          this.$dispatch('dismissed');
+        }
       },
     },
   }
