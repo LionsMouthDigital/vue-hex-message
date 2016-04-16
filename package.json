@@ -1,7 +1,7 @@
 {
   "name": "vue-hex-message",
   "version": "1.0.0-beta.6",
-  "description": "Docs for the Hex framework",
+  "description": "A Vue component for messages in the Hex Framework from LionsMouth Digital.",
   "main": "dist/hex-message.js",
   "author": "Curtis Blackwell <blackwell.curtis@gmail.com>",
   "maintainers": [
