@@ -1,5 +1,5 @@
 <template>
-  <div class="message" :transition="effect" v-show="show">
+  <div class="message" v-show="show">
     <slot></slot>
     <button class="message-dismiss" v-if="dismissible" @click="dismiss">&times;</button>
     <div class="timer-bar" v-if="selfDestruct && showTimerBar"></div>
