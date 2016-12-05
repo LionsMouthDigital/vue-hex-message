@@ -8,50 +8,64 @@
 
 <script>
   export default {
-    ready() {
-      // Start the countdown.
-      if (this.autoCountdown) {
-        this.countdown();
-      }
+    name: 'HexMessage',
+
+
+    data() {
+      return {
+        // Determine whether to show the message.
+        show:           true,
+        timeToDestruct: 0,
+      };
     },
 
-    computed: {
-      /**
-       * Determine if this message is a modal.
-       *
-       * @author Curtis Blackwell
-       * @return {Boolean}
-       */
-      isModal() {
-        return this.$parent.hasOwnProperty('$options') && this.$parent.$options.name === 'hex-modals';
-      },
-      /**
-       * Determine whether to show the message.
-       *
-       * @author Curtis Blackwell
-       * @return {boolean}
-       */
-      show() {
-        return this.visible
-      },
-    },
 
     props: {
-      // Automatically count down from value of `selfDestruct`?
+      /**
+       * Automatically count down from value of `selfDestruct`?
+       *
+       * @type {Boolean}
+       */
       autoCountdown: Boolean,
-      // Add a button to dismiss the message?
-      dismissible:   Boolean,
-      effect:        String,
-      // Number of seconds after which to dismiss the message.
-      selfDestruct:  String,
-      // Show a timer bar?
-      showTimerBar:  Boolean,
-      // Show the message?
+
+      /**
+       * Add a button to dismiss the message?
+       *
+       * @type {Boolean}
+       */
+      dismissible: {
+        type:    Boolean,
+        default: true,
+      },
+
+      /**
+       * Number of seconds after which to dismiss the message.
+       *
+       * @type {Number}
+       */
+      selfDestruct: Number,
+
+      /**
+       * Show a timer bar?
+       *
+       * @type {Boolean}
+       */
+      showTimerBar: {
+        type:    Boolean,
+        default: true,
+      },
+
+      /**
+       * Show the message?
+       *
+       * @type {Boolean}
+       */
       visible: {
         type:    Boolean,
         default: true
       },
     },
+
 
     methods: {
       /**
@@ -62,29 +76,29 @@
        */
       countdown() {
         if (this.selfDestruct) {
-          var message = this;
           // Run this code every second.
-          var countdownTimer = window.setInterval(function() {
-            message.selfDestruct--;
+          let countdownTimer = setInterval(() => {
+            this.timeToDestruct--;
 
             // Once the timer reaches 0, remove the message.
-            if (message.selfDestruct < 1) {
+            if (this.timeToDestruct === 0) {
               // Stop the repeating code.
-              window.clearInterval(countdownTimer);
-              message.dismiss();
+              clearInterval(countdownTimer);
+              this.dismiss();
             }
           }, 1000);
 
           // Animate the timer bar.
-          if (this.selfDestruct && this.showTimerBar) {
-            var timerBar = this.$el.querySelector('.timer-bar');
-            // I'd prefer to set only `animationDuration`, but for some reason, setting it
-            // separately causes the animationTimingFunction to be ease-in-out.
-            timerBar.style.transition = this.selfDestruct + 's ' + 'linear';
-            timerBar.className += ' animate-countdown';
+          if (this.timeToDestruct && this.showTimerBar) {
+            let timerBar = this.$el.querySelector('.timer-bar');
+
+            // Set the duration of the transition to the destruction timing and add the class.
+            timerBar.style.transitionDuration  = this.timeToDestruct + 's';
+            timerBar.className                += ' animate-countdown';
           }
         }
       },
+
 
       /**
        * Dismiss the message.
@@ -93,13 +107,19 @@
        * @return {void}
        */
       dismiss() {
-        this.visible = false;
-
-        // If this is a modal, let the parent `hex-modals` component know this was dismissed.
-        if (this.isModal) {
-          this.$dispatch('dismissed');
-        }
+        this.show = false;
       },
+    },
+
+
+    created() {
+      this.show           = this.visible;
+      this.timeToDestruct = this.selfDestruct - 1;
+
+      // Start the countdown.
+      if (this.autoCountdown) {
+        this.countdown();
+      }
     },
   }
 </script>
