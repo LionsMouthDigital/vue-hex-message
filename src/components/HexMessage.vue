@@ -1,7 +1,7 @@
 <template>
   <div class="message" v-show="show">
     <slot></slot>
-    <button class="message-dismiss" v-if="dismissible" @click="dismiss()">&times;</button>
+    <button class="message-dismiss" v-if="dismissible" @click="dismiss(dismissArgs)">&times;</button>
     <div class="timer-bar" v-if="selfDestruct && showTimerBar"></div>
   </div>
 </template>
@@ -38,6 +38,16 @@
         default: function () {
           this.show = false;
         },
+      },
+
+      /**
+       * Arguments to pass to dismiss method.
+       *
+       * @type {String|Array}
+       */
+      dismissArgs: {
+        type:    [String, Array],
+        default: [],
       },
 
       /**
