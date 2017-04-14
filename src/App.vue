@@ -1,13 +1,20 @@
 <template>
   <div id="app">
     <h1>Hex Message</h1>
+    <h2>Visible when there are messages</h2>
+    <button @click="addMessage">Add message</button>
+    <hex-message v-if="messages.length" :dismiss="resetMessages">
+      <ul>
+        <li v-for="message in messages" v-text="message"></li>
+      </ul>
+    </hex-message>
+
     <h2>There's an an invisible message here.</h2>
+    <button @click="$refs.invisible.show = true">Reveal</button>
     <hex-message dismissible ref="invisible" :visible="false">
       <h3>The Invisible Man</h3>
       <p>&hellip; and other stories by H.G. Wells.</p>
     </hex-message>
-
-    <button @click="$refs.invisible.show = true">Reveal</button>
 
     <h2>Contexts</h2>
     <p>
@@ -63,9 +70,26 @@ import HexMessage from './components/HexMessage.vue'
 
 export default {
   name: 'app',
+
   components: {
     HexMessage
-  }
+  },
+
+  data() {
+    return {
+      messages: [],
+    };
+  },
+
+  methods: {
+    addMessage() {
+      this.messages.push('The time is ' + new Date);
+    },
+
+    resetMessages() {
+      this.messages = [];
+    },
+  },
 }
 </script>
 

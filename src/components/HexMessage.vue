@@ -1,7 +1,7 @@
 <template>
   <div class="message" v-show="show">
     <slot></slot>
-    <button class="message-dismiss" v-if="dismissible" @click="dismiss">&times;</button>
+    <button class="message-dismiss" v-if="dismissible" @click="dismiss()">&times;</button>
     <div class="timer-bar" v-if="selfDestruct && showTimerBar"></div>
   </div>
 </template>
@@ -27,6 +27,18 @@
        * @type {Boolean}
        */
       autoCountdown: Boolean,
+
+      /**
+       * Define how the message gets dismissed.
+       *
+       * @type {Function}
+       */
+      dismiss: {
+        type:    Function,
+        default: function () {
+          this.show = false;
+        },
+      },
 
       /**
        * Add a button to dismiss the message?
@@ -97,17 +109,6 @@
             timerBar.className                += ' animate-countdown';
           }
         }
-      },
-
-
-      /**
-       * Dismiss the message.
-       *
-       * @author Curtis Blackwell
-       * @return {void}
-       */
-      dismiss() {
-        this.show = false;
       },
     },
 
