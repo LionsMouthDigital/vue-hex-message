@@ -47,7 +47,7 @@
        */
       dismissArgs: {
         type:    [String, Array],
-        default: function (), {
+        default: function () {
           return [];
         },
       },
