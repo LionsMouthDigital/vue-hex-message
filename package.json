@@ -1,7 +1,7 @@
 {
   "name": "vue-hex-message",
   "main": "src/components/HexMessage.vue",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "A Vue component for messages in the Hex Framework from LionsMouth Digital.",
   "author": "Curtis Blackwell <blackwell.curtis@gmail.com>",
   "scripts": {
